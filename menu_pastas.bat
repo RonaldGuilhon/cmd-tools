@@ -80,11 +80,40 @@ for %%f in ("%pasta_atual%\*.lnk") do (
     set /a opcoes_max+=1
     set "arquivo!contador!=%%~nf"
     set "caminho!contador!=%%f"
-    echo [!contador!] %%~nf
+    set "tipo!contador!=atalho"
+    echo [!contador!] %%~nf (Atalho)
+)
+
+rem Listar arquivos executáveis (.exe, .bat, .cmd)
+for %%f in ("%pasta_atual%\*.exe") do (
+    set /a contador+=1
+    set /a opcoes_max+=1
+    set "arquivo!contador!=%%~nxf"
+    set "caminho!contador!=%%f"
+    set "tipo!contador!=executavel"
+    echo [!contador!] %%~nxf (Executável)
+)
+
+for %%f in ("%pasta_atual%\*.bat") do (
+    set /a contador+=1
+    set /a opcoes_max+=1
+    set "arquivo!contador!=%%~nxf"
+    set "caminho!contador!=%%f"
+    set "tipo!contador!=executavel"
+    echo [!contador!] %%~nxf (Batch)
+)
+
+for %%f in ("%pasta_atual%\*.cmd") do (
+    set /a contador+=1
+    set /a opcoes_max+=1
+    set "arquivo!contador!=%%~nxf"
+    set "caminho!contador!=%%f"
+    set "tipo!contador!=executavel"
+    echo [!contador!] %%~nxf (Command)
 )
 
 if %opcoes_max%==0 (
-    echo Nenhum atalho encontrado nesta pasta.
+    echo Nenhum atalho ou executavel encontrado nesta pasta.
     echo.
     echo [1] Abrir pasta no Explorer
     echo [0] Voltar ao menu principal
@@ -133,11 +162,20 @@ if %opcao_valida%==0 (
 rem Executar o arquivo selecionado
 setlocal enabledelayedexpansion
 set "arquivo_selecionado=!caminho%sub_opcao%!"
+set "tipo_arquivo=!tipo%sub_opcao%!"
 echo.
 echo Executando: !arquivo%sub_opcao%!
 
-rem Executar o atalho .lnk
-start "" "!arquivo_selecionado!"
+rem Verificar o tipo de arquivo e executar adequadamente
+if "!tipo_arquivo!"=="atalho" (
+    rem Executar o atalho .lnk
+    start "" "!arquivo_selecionado!"
+) else if "!tipo_arquivo!"=="executavel" (
+    rem Executar arquivo executável diretamente
+    cd /d "%pasta_atual%"
+    start "" "!arquivo_selecionado!"
+    cd /d "c:\Users\Ronald\Documents\GitHub\cmd-tools"
+)
 
 echo.
 echo Pressione qualquer tecla para voltar ao submenu...

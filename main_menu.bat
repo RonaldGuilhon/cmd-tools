@@ -14,21 +14,25 @@ echo +==========================================================================
 echo ^|                                              Main Menu                                               ^|
 echo +======================================================================================================+
 echo ^|                                                                                                      ^|
-echo ^|  Ferramentas de Sistema                          Atalhos de Pastas                                   ^|
+echo ^|  Ferramentas de Sistema                          Atalhos de Pastas                                  ^|
 echo ^|  ===========================                     =======================                             ^|
 echo ^|                                                                                                      ^|
-echo ^|  1. Rede                                         a. D:\PROGRAMAS INSTALADOS                          ^|
+echo ^|  1. Rede                                         a. D:\PROGRAMAS INSTALADOS                         ^|
 echo ^|  2. Disco                                        b. D:\Games                                         ^|
-echo ^|  3. Sistema                                      c. D:\Games\trainers                                ^|
+echo ^|  3. Sistema                                      c. D:\Games\trainers                               ^|
 echo ^|  4. Limpeza                                      d. D:\Emulador                                      ^|
 echo ^|  5. Seguranca                                                                                        ^|
-echo ^|  6. Atualizacoes                                                                                     ^|
+echo ^|  6. Atualizacoes                                 Executaveis Locais                                 ^|
+echo ^|                                                  ==================                                 ^|
 echo ^|                                                                                                      ^|
+echo ^|                                                  e. system_info.bat                                 ^|
+echo ^|                                                  f. tool.bat                                        ^|
+echo ^|                                                  g. menu_pastas.bat                                 ^|
 echo ^|                                                                                                      ^|
 echo ^|                                                  Outros                                              ^|
 echo ^|                                                  =======                                             ^|
 echo ^|                                                                                                      ^|
-echo ^|                                                  0. Sair                                             ^|
+echo ^|                                                  0. Sair                                            ^|
 echo ^|                                                                                                      ^|
 echo ^|                                                                                                      ^|
 echo ^|                                                                                                      ^|
@@ -49,6 +53,11 @@ if /i "%choice%"=="a" goto pasta1
 if /i "%choice%"=="b" goto pasta2
 if /i "%choice%"=="c" goto pasta3
 if /i "%choice%"=="d" goto pasta4
+
+:: Processar executáveis locais
+if /i "%choice%"=="e" call system_info.bat
+if /i "%choice%"=="f" call tool.bat
+if /i "%choice%"=="g" call menu_pastas.bat
 
 :: Processar outras opções
 if "%choice%"=="0" goto exit_program
